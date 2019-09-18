@@ -15,13 +15,15 @@
   }
 </script>
 
-<style lang="scss" scoped>
+<style lang="scss">
+  @import '../scss/variable';
+  
   .header{
     min-height: 70px;
     width: 100%;
     margin-bottom: 20px;
     .tit {
-      color: rgb(231, 250, 106);;
+      color: $color1;
       position: relative;
       height: 30px;
     }
@@ -33,11 +35,11 @@
     background: rgb(28, 28, 28);
     font-size: 0.9rem;
     border-radius: 6px;
-    color: rgb(231, 250, 106);
+    color: $color1;
     cursor: pointer;
     &:hover{  
       color: rgb(28, 28, 28);
-      background: rgb(231, 250, 106);
+      background: $color1;
       font-weight: bold;
     }
     &:focus{
