@@ -32,7 +32,7 @@
       // 완료 체크
       toggleCheck($todoItem, $idx, state, $checked) {
         event.stopPropagation();
-        this.$emit("toggleCheckEvt", $todoItem, $idx, !state, !$checked);
+        this.$emit("toggleCheckEvt", $todoItem, $idx, !state, $checked);
       },
       // 수정시작
       editItem($todoItem, $idx, edit) {
