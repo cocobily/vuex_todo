@@ -4,9 +4,11 @@
       <li v-for="(item, index) in propsdata" :key="item.key" :class="{'todoComplete_li':item.isDone, 'edit_li': item.isEdit}">
         <div v-if="!item.isEdit">
           <input type="checkbox" 
-            v-model="checked" true-value="true" false-value="false"
-            :id="item.key" @click="toggleCheck(item.key, index, item.isDone, item.toggle)">
-          <span class="item_txt" @dblclick="editItem(item.key, index, item.isEdit)">{{item.value}}</span>
+            :id="item.key" 
+            v-model="item.checked"
+            @click="toggleCheck(item.key, index, item.isDone, item.checked)">
+          <span class="item_txt" 
+            @dblclick="editItem(item.key, index, item.isEdit)">{{item.value}}</span>
           <button class="btn_remove" @click="removeItem(item.key, index)">-</button>
         </div>
         <div v-else>
@@ -30,9 +32,9 @@
         this.$emit("removeItemEvt", $todoItem, $idx);
       },
       // 완료 체크
-      toggleCheck($todoItem, $idx, state, $checked) {
+      toggleCheck($todoItem, $idx, state, $check) {
         event.stopPropagation();
-        this.$emit("toggleCheckEvt", $todoItem, $idx, !state, $checked);
+        this.$emit("toggleCheckEvt", $todoItem, $idx, !state, !$check);
       },
       // 수정시작
       editItem($todoItem, $idx, edit) {
