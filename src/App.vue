@@ -117,7 +117,7 @@ export default {
   // style
   body{
     text-align: center;
-    background-color: rgb(36, 36, 36);
+    background-color: #6f6f6f;
   }
   .wrap{
     padding: 20px;
