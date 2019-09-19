@@ -1,7 +1,7 @@
 <template>
   <div class="bx_inp">
     <form @submit.prevent="addItem">
-      <input type="text" class="inp" v-model="newItem" placeholder="할일을 입력 후 추가해 주세요.">
+      <input type="text" class="inp" autofocus v-model="newItem" placeholder="할일을 입력 후 추가해 주세요.">
       <button type="button" class="btn_add" @click="addItem">+</button>
     </form>
   </div>

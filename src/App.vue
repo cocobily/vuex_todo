@@ -113,7 +113,7 @@ export default {
 </script>
 
 <style lang="scss">
-  @import 'scss/reset', 'scss/variable';
+  @import 'scss/reset', 'scss/variable', 'scss/mixin';
   // style
   body{
     text-align: center;
@@ -121,5 +121,9 @@ export default {
   }
   .wrap{
     padding: 20px;
+    @include respond-to(tablet){
+      width: 800px;
+      margin:0 auto;
+    }
   }
 </style>

@@ -13,7 +13,7 @@
         </div>
         <div v-else>
           <input type="text" class="edit" 
-            v-model="item.value"
+            v-model="item.value" ref="input"
             @keyup.enter="doneEdit(item.key, index, item.value, item.isEdit)">
           <button type="button" class="btn_ok" @click="doneEdit(item.key, index, item.value, item.isEdit)">ok</button>
         </div>
