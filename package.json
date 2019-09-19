@@ -42,6 +42,7 @@
       "autoprefixer": {}
     }
   },
+  "homepage": "http://cocobily.github.io/vue_todo",
   "browserslist": [
     "> 1%",
     "last 2 versions"
