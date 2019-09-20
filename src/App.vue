@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="wrap">
-    <TodoHeader @removeAllEvt="removeAll"></TodoHeader>
+    <TodoHeader :pdata="listTotal" @removeAllEvt="removeAll"></TodoHeader>
     <TodoInput @addItemEvt="todoAdd"></TodoInput>
     <TodoList :propsdata="todoListItems" 
       @toggleCheckEvt="changeDone" 
@@ -20,6 +20,8 @@ export default {
   data(){
     return {
       todoListItems: [],
+      listTotal : 0,
+      listComplete : 0
     }
   },
   methods: {
@@ -27,6 +29,7 @@ export default {
     removeAll() {
       alert('전체 삭제')
       this.todoListItems = [];
+      this.listTotal = this.todoListItems.length;
 
       localStorage.clear();
     },
@@ -41,6 +44,7 @@ export default {
         isEdit: false
       };
       this.todoListItems.push(data);
+      this.listTotal = this.todoListItems.length;
 
       localStorage.setItem(newKey, JSON.stringify(data));
     },
@@ -48,6 +52,7 @@ export default {
     // item 지우기
     removeTodoList($todoItem, $idx) {
       this.todoListItems.splice($idx, 1);
+      this.listTotal = this.todoListItems.length;
 
       localStorage.removeItem($todoItem)
     },
@@ -79,7 +84,7 @@ export default {
 
         localStorage.setItem($todoItem, JSON.stringify(data));
       }
-    }
+    },
   },
 
   created() {
@@ -104,6 +109,20 @@ export default {
       // mounted
       // el이 새로 생성된 vm.$el로 대체된 인스턴스가 마운트 된 직후 호출됩니다. 
       // 루트 인스턴스가 문서 내의 엘리먼트에 마운트 되어 있으면, mounted가 호출 될 때 vm.$el도 문서 안에 있게 됩니다.
+
+      this.listTotal = this.todoListItems.length;
+      if (this.listTotal > 0){
+        let count = 0;
+        for ( let j=0; j>this.listTotal.length; j++){
+          if (this.todoListItems.isDone.value == 'false'){
+            console.log('참')
+            count++
+          }
+          return count;
+        }
+        console.log(count)
+        
+      }
   },
 
   components: {

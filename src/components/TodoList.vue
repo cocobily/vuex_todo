@@ -47,7 +47,7 @@
       doneEdit($todoItem, $idx, $val, done) {
         event.stopPropagation();
         this.$emit("doneEditEvt", $todoItem, $idx, $val, !done);
-      }
+      },
     }
   }
 </script>
