@@ -35,7 +35,10 @@ export default {
     todoAdd($item) {
       const newKey = "k" + new Date().getTime().toString();
       const data = {
-        key: newKey, value: $item, isDone: false, isEdit: false, checked: false
+        key: newKey, 
+        value: $item, 
+        isDone: false, 
+        isEdit: false
       };
       this.todoListItems.push(data);
 
@@ -50,9 +53,8 @@ export default {
     },
 
     // 상태 체크
-    changeDone($todoItem, $idx, state, $check) {
+    changeDone($todoItem, $idx, state) {
       this.todoListItems[$idx].isDone = state;
-      this.todoListItems[$idx].checked = $check;
       const data = this.todoListItems[$idx];
 
       localStorage.setItem($todoItem, JSON.stringify(data));
