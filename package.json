@@ -5,7 +5,8 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "gh-pages": "vue-cli-service gh-pages"
   },
   "dependencies": {
     "core-js": "^2.6.5",
@@ -23,6 +24,7 @@
     "node-sass": "^4.12.0",
     "push-dir": "^0.4.1",
     "sass-loader": "^8.0.0",
+    "vue-cli-plugin-gh-pages": "^0.4.0",
     "vue-cli-plugin-sass-resources-loader": "^1.0.0",
     "vue-template-compiler": "^2.6.10",
     "vuepress": "^1.1.0"
