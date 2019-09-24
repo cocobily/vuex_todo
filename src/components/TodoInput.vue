@@ -41,13 +41,17 @@
     color: rgb(242, 174, 174);
   }
   .bx_inp {
-    text-align: left;
-    padding-left: 10px;
-    background: white;
     height: 40px;
-    line-height: 40px;
-    border-radius: 5px;
-    
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    text-align: left;
+    border-bottom: 1px dashed #a5a5a5;
+    form{
+      padding-left: 10px;
+      background: white;
+      border-radius: 5px;
+      line-height: 40px;
+    }
   }
   .inp {
     width: calc(100% - 4rem);
@@ -59,8 +63,8 @@
   .btn_add {
     float: right;
     height: 40px;
-    background: rgb(12, 2, 7);
-    color: $color1;
+    background: $color2;
+    color: $white;
     width: 3.5rem;
     font-size: 1.6rem;
     border-radius: 0 5px 5px 0;
@@ -68,8 +72,7 @@
     text-shadow: 1px 1px 1px rgb(50, 34, 0);
     cursor: pointer;
     &:hover {
-      background: rgb(254, 1, 119);
-      color: white;
+      background: $color3;
     }
     &:focus {
       outline: none;

@@ -85,6 +85,11 @@ export default {
         localStorage.setItem($todoItem, JSON.stringify(data));
       }
     },
+
+    // 완료갯수 체크
+    countComplete(){
+      
+    }
   },
 
   created() {
@@ -110,19 +115,16 @@ export default {
       // el이 새로 생성된 vm.$el로 대체된 인스턴스가 마운트 된 직후 호출됩니다. 
       // 루트 인스턴스가 문서 내의 엘리먼트에 마운트 되어 있으면, mounted가 호출 될 때 vm.$el도 문서 안에 있게 됩니다.
 
-      this.listTotal = this.todoListItems.length;
-      if (this.listTotal > 0){
-        let count = 0;
-        for ( let j=0; j>this.listTotal.length; j++){
-          if (this.todoListItems.isDone.value == 'false'){
-            console.log('참')
-            count++
-          }
-          return count;
-        }
-        console.log(count)
-        
+    this.listTotal = this.todoListItems.length;
+
+    let num = 0;
+    for (var j=0; j < this.todoListItems.length; j++){
+      if (this.todoListItems[j].isDone == true){
+        ++num
+        this.listComplete = num
       }
+    }
+    console.log(this.listComplete)
   },
 
   components: {
@@ -138,7 +140,7 @@ export default {
   // style
   body{
     text-align: center;
-    background-color: #6f6f6f;
+    background-color: #e4f5ef;
   }
   .wrap{
     padding: 20px;

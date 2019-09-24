@@ -68,6 +68,7 @@
     background: $color1;
     margin: 0.6rem 0;
     border-radius: 6px;
+    color: $white;
     &:hover{
       margin-left: 7px;
       opacity: 0.8;
@@ -123,18 +124,17 @@
   .btn_remove, .btn_ok {
     z-index: 1;
     height: 40px;
-    background: rgb(23, 23, 23);
+    background: $color2;
     width: 3.5rem;
     margin-left:auto;
     font-size: 1.6rem;
     border-radius: 0 6px 6px 0;
-    color: $color1;
+    color: $white;
     font-weight: bold;
     text-shadow: 1px 1px 1px rgb(50, 34, 0);
     cursor: pointer;
     &:hover{
-      background: rgb(176, 0, 82);
-      color: white;
+      background: $color3;
     }
     &:focus {
       outline: none;

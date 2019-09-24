@@ -1,6 +1,8 @@
 <template>
   <div class="header">
-    <h1 class="tit">Todo App</h1>
+    <h1 class="tit">
+      <img class="logo" alt="Vue logo" src="../assets/logo.png">
+      Todo App</h1>
     <button class="btn_reset" @click="removeAll">Reset</button>
     <p class="num">총 : {{ pdata }}, 완료 : </p>
   </div>
@@ -22,37 +24,35 @@
   
   .header{
     overflow:hidden;
-    min-height: 100px;
     width: 100%;
-    margin-bottom: 20px;
     .tit {
-      color: $color1;
+      height: 60px;
+      color: #333;
       position: relative;
-      height: 30px;
+    }
+    .logo{
+      width: 50px;
     }
   }
   .btn_reset {
     float: right;
-    height: 30px;
-    width: 3.5rem;
-    background: rgb(28, 28, 28);
+    padding:10px 20px;
+    background: $point1;
     font-size: 0.9rem;
     border-radius: 6px;
-    color: $color1;
+    color: $white;
     cursor: pointer;
     &:hover{  
-      color: rgb(28, 28, 28);
-      background: $color1;
-      font-weight: bold;
+      background: $point2;
     }
     &:focus{
       outline: none;
     }
   }
   .num{
-    padding-top: 30px;
-    text-align: left;
-    font-size: 20px;
-    color: $white;
+    padding: 60px 0 10px;
+    text-align: right;
+    font-size: 1rem;
+    color: #333;
   }
 </style>
