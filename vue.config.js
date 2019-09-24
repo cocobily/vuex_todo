@@ -3,5 +3,6 @@ module.exports = {
     sourceMap: true
   },
 
-  publicPath: ''
+  publicPath: '',
+  outputDir: 'dist/'
 }
