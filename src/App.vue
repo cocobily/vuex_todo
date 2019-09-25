@@ -85,11 +85,6 @@ export default {
         localStorage.setItem($todoItem, JSON.stringify(data));
       }
     },
-
-    // 완료갯수 체크
-    countComplete(){
-      
-    }
   },
 
   created() {
