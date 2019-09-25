@@ -21,7 +21,7 @@ export default {
     return {
       todoListItems: [],
       listTotal : 0,
-      listComplete : 0
+      // listComplete : 0
     }
   },
   methods: {
@@ -112,14 +112,14 @@ export default {
 
     this.listTotal = this.todoListItems.length;
 
-    let num = 0;
-    for (var j=0; j < this.todoListItems.length; j++){
-      if (this.todoListItems[j].isDone == true){
-        ++num
-        this.listComplete = num
-      }
-    }
-    console.log(this.listComplete)
+    // let num = 0;
+    // for (var j=0; j < this.todoListItems.length; j++){
+    //   if (this.todoListItems[j].isDone == true){
+    //     ++num
+    //     this.listComplete = num
+    //   }
+    // }
+    // console.log(this.listComplete)
   },
 
   components: {
