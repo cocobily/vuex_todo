@@ -4,7 +4,7 @@
       <img class="logo" alt="Vue logo" src="../assets/logo.png">
       Todo App</h1>
     <button class="btn_reset" @click="removeAll">Reset</button>
-    <p class="num">총 : {{ pdata.listTotal }} | 완료 : {{ pdata.listComplete }} | 진행 : {{ pdata.listBeing }} </p>
+    <p class="num">총 : {{ pdata.listTotal }} <span>|</span> 완료 : {{ pdata.listComplete }} <span>|</span> 진행 : {{ pdata.listBeing }} </p>
   </div>
 </template>
 
@@ -56,5 +56,13 @@
     text-align: right;
     font-size: 1rem;
     color: #333;
+    > span{
+      display: inline-block;
+      padding:0 10px;
+      color: $point2;
+      opacity: 0.5;
+      font-size: 0.8rem;
+      vertical-align: text-top;
+    }
   }
 </style>
