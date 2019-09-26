@@ -4,7 +4,7 @@
       <img class="logo" alt="Vue logo" src="../assets/logo.png">
       Todo App</h1>
     <button class="btn_reset" @click="removeAll">Reset</button>
-    <p class="num">총 : {{ pdata.listTotal }}, 완료 : {{ pdata.listComplete }}, 진행중 {{ pdata.listBeing }} </p>
+    <p class="num">총 : {{ pdata.listTotal }} | 완료 : {{ pdata.listComplete }} | 진행 : {{ pdata.listBeing }} </p>
   </div>
 </template>
 
