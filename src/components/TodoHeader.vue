@@ -4,13 +4,15 @@
       <img class="logo" alt="Vue logo" src="../assets/logo.png">
       Todo App</h1>
     <button class="btn_reset" @click="removeAll">Reset</button>
-    <p class="num">총 : {{ pdata }}, 완료 : </p>
+    <p class="num">총 : {{ pdata.listTotal }}, 완료 : {{ pdata.listComplete }}, 진행중 {{ pdata.listBeing }} </p>
   </div>
 </template>
 
 <script>
   export default {
-    props: ["pdata"],
+    props: [
+      "pdata"
+    ],
     methods:{
       removeAll(){
         this.$emit('removeAllEvt')

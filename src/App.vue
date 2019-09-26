@@ -1,6 +1,6 @@
 <template>
   <div id="app" class="wrap">
-    <TodoHeader :pdata="listTotal" @removeAllEvt="removeAll"></TodoHeader>
+    <TodoHeader :pdata="countFilter" @removeAllEvt="removeAll"></TodoHeader>
     <TodoInput @addItemEvt="todoAdd"></TodoInput>
     <TodoList :propsdata="todoListItems" 
       @toggleCheckEvt="changeDone" 
@@ -20,8 +20,11 @@ export default {
   data(){
     return {
       todoListItems: [],
-      listTotal : 0,
-      listComplete : 0
+      countFilter: {
+        listTotal : 0, // 총
+        listComplete : 0, // 완료
+        listBeing : 0 // 진행
+      }
     }
   },
   methods: {
@@ -29,7 +32,9 @@ export default {
     removeAll() {
       alert('전체 삭제')
       this.todoListItems = [];
-      this.listTotal = this.todoListItems.length;
+      this.countFilter.listTotal = this.todoListItems.length;
+      this.filterTodoCp(this.countFilter.listComplete);
+      this.filterTodoBe(this.countFilter.listComplete);
 
       localStorage.clear();
     },
@@ -44,7 +49,8 @@ export default {
         isEdit: false
       };
       this.todoListItems.push(data);
-      this.listTotal = this.todoListItems.length;
+      this.countFilter.listTotal = this.todoListItems.length;
+      this.filterTodoBe(this.countFilter.listComplete);
 
       localStorage.setItem(newKey, JSON.stringify(data));
     },
@@ -52,7 +58,9 @@ export default {
     // item 지우기
     removeTodoList($todoItem, $idx) {
       this.todoListItems.splice($idx, 1);
-      this.listTotal = this.todoListItems.length;
+      this.countFilter.listTotal = this.todoListItems.length;
+      this.filterTodoCp(this.countFilter.listComplete);
+      this.filterTodoBe(this.countFilter.listComplete);
 
       localStorage.removeItem($todoItem)
     },
@@ -61,6 +69,8 @@ export default {
     changeDone($todoItem, $idx, state) {
       this.todoListItems[$idx].isDone = state;
       const data = this.todoListItems[$idx];
+      this.filterTodoCp(this.countFilter.listComplete);
+      this.filterTodoBe(this.countFilter.listComplete);
 
       localStorage.setItem($todoItem, JSON.stringify(data));
     },
@@ -85,6 +95,16 @@ export default {
         localStorage.setItem($todoItem, JSON.stringify(data));
       }
     },
+
+    // filter
+    filterTodoCp(todo){
+      this.countFilter.listComplete = this.todoListItems.filter(it => it.isDone === true).length;
+      return this.countFilter.listComplete;
+    },
+    filterTodoBe(todo){
+      this.countFilter.listBeing = this.todoListItems.filter(it => it.isDone === false).length;
+      return this.countFilter.listBeing;
+    }
   },
 
   created() {
@@ -110,16 +130,9 @@ export default {
       // el이 새로 생성된 vm.$el로 대체된 인스턴스가 마운트 된 직후 호출됩니다. 
       // 루트 인스턴스가 문서 내의 엘리먼트에 마운트 되어 있으면, mounted가 호출 될 때 vm.$el도 문서 안에 있게 됩니다.
 
-    this.listTotal = this.todoListItems.length;
-
-    // let num = 0;
-    // for (var j=0; j < this.todoListItems.length; j++){
-    //   if (this.todoListItems[j].isDone == true){
-    //     ++num
-    //     this.listComplete = num
-    //   }
-    // }
-    // console.log(this.listComplete)
+    this.countFilter.listTotal = this.todoListItems.length;
+    this.filterTodoCp(this.countFilter.listComplete);
+    this.filterTodoBe(this.countFilter.listComplete);
   },
 
   components: {
