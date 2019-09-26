@@ -21,7 +21,7 @@ export default {
     return {
       todoListItems: [],
       listTotal : 0,
-      // listComplete : 0
+      listComplete : 0
     }
   },
   methods: {
