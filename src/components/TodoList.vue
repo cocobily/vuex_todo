@@ -15,7 +15,7 @@
         </div>
         <div v-show="item.isEdit">
           <input type="text" class="edit" 
-            v-model="item.value" ref="editInput"
+            v-model="item.value" ref="inp"
             @keyup.enter="doneEdit(item.key, index, item.value, item.isEdit)">
           <button type="button" class="btn_ok" @click="doneEdit(item.key, index, item.value, item.isEdit)">ok</button>
         </div>
@@ -48,7 +48,7 @@
         event.stopPropagation();
         this.$emit("doneEditEvt", $todoItem, $idx, $val, !done);
       },
-    }
+    },
   }
 </script>
 
@@ -144,7 +144,7 @@
   .edit{
     width: 100%;
     border:none;
-    padding: 10px;
+    padding: 13px;
     border-radius: 6px 0 0 6px;
   }
 </style>

@@ -1,7 +1,7 @@
 <template>
   <div class="bx_inp">
     <form @submit.prevent="addItem">
-      <input type="text" class="inp" autofocus v-model.trim="newItem" placeholder="할일을 입력 후 추가해 주세요.">
+      <input type="text" class="inp" v-focus v-model.trim="newItem" placeholder="할일을 입력 후 추가해 주세요.">
       <button type="button" class="btn_add" @click="addItem">+</button>
     </form>
   </div>
@@ -14,6 +14,7 @@
         newItem :''
       }
     },
+    
     methods: {
       addItem(){
         if (this.newItem !== ''){
@@ -27,7 +28,16 @@
       clearText(){
         this.newItem = '';
       }
-    }
+    },
+        
+    directives: {
+      focus: {
+        // 디렉티브 정의
+        inserted: function (el) {
+          el.focus()
+        }
+      }
+    },
   }
 </script>
 

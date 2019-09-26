@@ -79,8 +79,6 @@ export default {
     editItem($todoItem, $idx, str) {
       this.todoListItems[$idx].isEdit = str
       const data = this.todoListItems[$idx];
-
-      localStorage.setItem($todoItem, JSON.stringify(data));
     },
 
     // 수정완료
@@ -104,6 +102,15 @@ export default {
     filterTodoBe(todo){
       this.countFilter.listBeing = this.todoListItems.filter(it => it.isDone === false).length;
       return this.countFilter.listBeing;
+    }
+  },
+
+  directives: {
+    focus: {
+      // 디렉티브 정의
+      inserted: function (el) {
+        el.focus()
+      }
     }
   },
 
