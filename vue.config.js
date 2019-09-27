@@ -5,7 +5,7 @@ module.exports = {
 
   pluginOptions: {
     ghPages: {
-      dest: ''
+      dest: '/vue_todo/'
     }
   }
 }
