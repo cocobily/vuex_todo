@@ -1,26 +1,38 @@
 <template>
   <div>
-    <ul>
-      <li v-for="(item, index) in propsdata" :key="item.key" :class="{'todoComplete_li':item.isDone, 'edit_li': item.isEdit}">
-        <div v-show="!item.isEdit">
-          <input type="checkbox" 
-            :id="item.key" 
-            v-model="item.isDone"
-            @click="toggleCheck(item.key, index, item.isDone)">
-          <span class="item_txt" 
-            @dblclick="editItem(item.key, index, item.isEdit)">
-              {{item.value}}
-          </span>
-          <button class="btn_remove" @click="removeItem(item.key, index)">-</button>
-        </div>
-        <div v-show="item.isEdit">
-          <input type="text" class="edit" 
-            v-model="item.value" ref="inp"
-            @keyup.enter="doneEdit(item.key, index, item.value, item.isEdit)">
-          <button type="button" class="btn_ok" @click="doneEdit(item.key, index, item.value, item.isEdit)">ok</button>
-        </div>
-      </li>
-    </ul>
+    <div v-if="!propsdata.length">
+      <p class="nodata">할일이 없습니다.</p>
+    </div>
+    <div v-else>
+      <div class="bx_top">
+        <select>
+          <option>최신순</option>
+          <option>진행중</option>
+          <option>가나다순</option>
+        </select>
+      </div>
+      <ul class="li_todo">
+        <li v-for="(item, index) in propsdata" :key="item.key" :class="{'todoComplete_li':item.isDone, 'edit_li': item.isEdit}">
+          <div v-show="!item.isEdit">
+            <input type="checkbox" 
+              :id="item.key" 
+              v-model="item.isDone"
+              @click="toggleCheck(item.key, index, item.isDone)">
+            <span class="item_txt" :title="item.value"
+              @dblclick="editItem(item.key, index, item.isEdit)">
+                {{item.value}}
+            </span>
+            <button class="btn_remove" @click="removeItem(item.key, index)">-</button>
+          </div>
+          <div v-show="item.isEdit">
+            <input type="text" class="edit" 
+              v-model="item.value" ref="inp"
+              @keyup.enter="doneEdit(item.key, index, item.value, item.isEdit)">
+            <button type="button" class="btn_ok" @click="doneEdit(item.key, index, item.value, item.isEdit)">OK</button>
+          </div>
+        </li>
+      </ul>
+    </div>
   </div>
 </template>
 
@@ -41,7 +53,7 @@
       // 수정시작
       editItem($todoItem, $idx, edit) {
         event.stopPropagation();
-        this.$emit("editItemEvt", $todoItem, $idx, !edit);
+        this.$emit("editItemEvt", $todoItem, $idx, !edit, this.$refs.inp);
       },
       // 수정완료
       doneEdit($todoItem, $idx, $val, done) {
@@ -51,100 +63,3 @@
     },
   }
 </script>
-
-<style lang="scss" scoped>
-  @import '../scss/variable';
-
-  ul {
-    list-style-type: none;
-    padding: 0px;
-    margin-top: 0px;
-    text-align: left;
-  }
-  li {
-    display: flex;
-    height: 40px;
-    line-height: 40px;
-    background: $color1;
-    margin: 0.6rem 0;
-    border-radius: 6px;
-    color: $white;
-    &:hover{
-      margin-left: 7px;
-      opacity: 0.8;
-    }
-    >div{
-      display: flex;
-      width: 100%;
-      flex-direction: row;
-      align-items: center;
-    }
-    &.edit_li{
-      background: #fff;
-      opacity: 1;
-    }
-    &.todoComplete_li {
-      background:rgb(201, 201, 201)
-    }
-  }
-  .btn_complete{
-    z-index: 1;
-    height: 40px;
-    width: 3.5rem;
-    font-size: 1.2rem;
-    border-radius: 6px 0 0 6px;
-    color: rgb(176, 0, 82);
-    font-weight: bold;
-    text-shadow: 1px 1px 1px rgb(50, 34, 0);
-    cursor: pointer;
-    &:hover{
-      background: rgb(176, 0, 82);
-      color: white;
-    }
-    &:focus {
-      outline: none;
-    }
-  }
-
-  .item_txt {
-    flex:1;
-    overflow: hidden;
-    width: calc(100% - 3.5rem);
-    cursor: pointer;
-  }
-
-  input[type="checkbox"] {
-    margin: 0 20px;
-    &:checked + .item_txt{
-      color: gray;
-      text-decoration: line-through;
-    }
-  }
-
-  .btn_remove, .btn_ok {
-    z-index: 1;
-    height: 40px;
-    background: $color2;
-    width: 3.5rem;
-    margin-left:auto;
-    font-size: 1.6rem;
-    border-radius: 0 6px 6px 0;
-    color: $white;
-    font-weight: bold;
-    text-shadow: 1px 1px 1px rgb(50, 34, 0);
-    cursor: pointer;
-    &:hover{
-      background: $color3;
-    }
-    &:focus {
-      outline: none;
-    }
-  }
-
-  .edit{
-    width: 100%;
-    border:none;
-    padding: 13px;
-    border-radius: 6px 0 0 6px;
-  }
-</style>

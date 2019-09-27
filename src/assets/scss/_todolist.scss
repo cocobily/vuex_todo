@@ -1,0 +1,235 @@
+// common
+body{
+  text-align: center;
+  background-color: #e4f5ef;
+}
+.wrap{
+  min-width: 320px;
+  padding: 20px;
+  box-sizing: border-box;
+  @include respond-to(tablet){
+    width: 800px;
+    margin:0 auto;
+  }
+}
+.nodata{
+  padding: 50px 0;
+}
+
+// btn
+.btn_reset {
+  float: right;
+  padding:10px 20px;
+  background: $point1;
+  font-size: 0.9rem;
+  border-radius: 6px;
+  color: $white;
+  cursor: pointer;
+  &:hover{  
+    background: $point2;
+  }
+  &:focus{
+    outline: none;
+  }
+}
+.bx_count{
+  padding: 60px 0 10px;
+  text-align: right;
+  font-size: 1rem;
+  color: #333;
+  > span{
+    display: inline-block;
+    padding:0 10px;
+    color: $point2;
+    opacity: 0.5;
+    font-size: 0.8rem;
+    vertical-align: text-top;
+  }
+}
+.btn_add {
+  float: right;
+  height: 40px;
+  background: $color2;
+  color: $white;
+  width: 3.5rem;
+  font-size: 1.6rem;
+  border-radius: 0 5px 5px 0;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px rgb(50, 34, 0);
+  cursor: pointer;
+  &:hover {
+    background: $color3;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+
+// header
+.header{
+  overflow:hidden;
+  width: 100%;
+  .tit {
+    height: 60px;
+    color: #333;
+    position: relative;
+  }
+  .logo{
+    width: 50px;
+  }
+}
+
+// form
+.inp:focus {
+  outline: none;
+}
+::placeholder {
+  color: rgb(242, 174, 174);
+}
+.bx_inp {
+  height: 40px;
+  margin-bottom: 30px;
+  padding-bottom: 30px;
+  text-align: left;
+  border-bottom: 1px dashed #a5a5a5;
+  form{
+    padding-left: 10px;
+    background: white;
+    border-radius: 5px;
+    line-height: 40px;
+  }
+}
+.inp {
+  width: calc(100% - 4rem);
+  border-style: none;
+  background: white;
+  font-size: 0.9rem;
+  color: rgb(137, 11, 179);
+}
+select {
+  min-width: 100px;
+  padding: 10px 5px 13px;
+  border: none;
+  vertical-align: top;
+  color:#333;
+}
+
+// list 영역
+.li_todo {
+  list-style-type: none;
+  padding: 0px;
+  margin-top: 0px;
+  text-align: left;
+  li {
+    display: flex;
+    height: 40px;
+    line-height: 40px;
+    background: $color1;
+    margin: 0.6rem 0;
+    border-radius: 6px;
+    color: $white;
+    &:hover{
+      margin-left: 7px;
+      opacity: 0.8;
+    }
+    >div{
+      display: flex;
+      width: 100%;
+      flex-direction: row;
+      align-items: center;
+    }
+    &.edit_li{
+      background: #fff;
+      opacity: 1;
+    }
+    &.todoComplete_li {
+      background:rgb(201, 201, 201)
+    }
+  }
+}
+.btn_complete{
+  z-index: 1;
+  height: 40px;
+  width: 3.5rem;
+  font-size: 1.2rem;
+  border-radius: 6px 0 0 6px;
+  color: rgb(176, 0, 82);
+  font-weight: bold;
+  text-shadow: 1px 1px 1px rgb(50, 34, 0);
+  cursor: pointer;
+  &:hover{
+    background: rgb(176, 0, 82);
+    color: white;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+.item_txt {
+  flex:1;
+  overflow: hidden;
+  width: calc(100% - 3.5rem);
+  padding-right: 10px;
+  cursor: pointer;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+}
+input[type="checkbox"] {
+  width: 5px;
+  height: 5px;
+  margin: 0 20px;
+  padding: 7px;
+  border: 3px solid #fff;
+  background: $white;
+  appearance: none;
+  border-radius: 50%;
+  &:checked {
+    background: #c9c9c9;
+  }
+  &:checked + .item_txt{
+    color: gray;
+    text-decoration: line-through;
+  }
+}
+.btn_remove, .btn_ok {
+  z-index: 1;
+  height: 40px;
+  background: $color2;
+  width: 3.5rem;
+  margin-left:auto;
+  font-size: 1.6rem;
+  border-radius: 0 6px 6px 0;
+  color: $white;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px rgb(50, 34, 0);
+  cursor: pointer;
+  &:hover{
+    background: $color3;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+.btn_ok{
+  font-size: 1.2rem;
+  min-width: 56px;
+}
+.edit{
+  width: 100%;
+  border:none;
+  padding: 13px;
+  border-radius: 6px 0 0 6px;
+}
+
+// sort
+.bx_top{
+  display:block;
+  padding: 5px;
+  text-align: right;
+  &::after{
+    display:block;
+    content:'';
+    clear:both;
+  }
+}
