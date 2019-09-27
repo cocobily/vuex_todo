@@ -30,7 +30,6 @@ export default {
       alert('전체 삭제')
       this.todoListItems = [];
       this.filterTodo();
-      this.$refs.addinp
       localStorage.clear();
     },
 
