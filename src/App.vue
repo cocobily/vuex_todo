@@ -2,7 +2,9 @@
   <div id="app" class="wrap">
     <TodoHeader :pdata="countFilter" @removeAllEvt="removeAll"></TodoHeader>
     <TodoInput @addItemEvt="todoAdd"></TodoInput>
-    <TodoList :propsdata="todoListItems" 
+    <TodoList :propsdata="todoListItems"
+      :sortTodo="sort"
+      @changeSortEvt="changeSort"
       @toggleCheckEvt="changeDone" 
       @editItemEvt="editItem" 
       @doneEditEvt="editDone" 
@@ -21,7 +23,7 @@ export default {
     return {
       todoListItems: [],
       countFilter: [],
-      // sort:''
+      sort:''
     }
   },
   methods: {
@@ -46,6 +48,7 @@ export default {
       this.filterTodo();
       inp.focus();
       localStorage.setItem(newKey, JSON.stringify(data));
+      this.changeSort(this.sort);
     },
     
     // item 지우기
@@ -53,7 +56,8 @@ export default {
       this.todoListItems.splice($idx, 1);
       this.filterTodo();
 
-      localStorage.removeItem($todoItem)
+      localStorage.removeItem($todoItem);
+      this.changeSort(this.sort);
     },
 
     // 상태 체크
@@ -63,6 +67,7 @@ export default {
       this.filterTodo();
 
       localStorage.setItem($todoItem, JSON.stringify(data));
+      this.changeSort(this.sort);
     },
 
     // 수정
@@ -81,6 +86,7 @@ export default {
         const data = this.todoListItems[$idx];
 
         localStorage.setItem($todoItem, JSON.stringify(data));
+        this.changeSort(this.sort);
       }
     },
 
@@ -95,6 +101,57 @@ export default {
       countFilter.listBeing = this.todoListItems.filter(it => it.isDone === false).length;
       this.countFilter = countFilter;
     },
+
+    // sort
+    changeSort($val){
+      this.sort = $val;
+      if (localStorage.length > 0) {
+        if ($val == 'reg'){ // 등록순
+          this.todoListItems.sort((a,b) => {
+            let x = a['key']; 
+            let y = b['key'];
+            // 0 또는 양수를 음수를 반환. 0:동일, 1 : 이상 반환은 무효. 숫자 대신 >사용 가능
+            return ((x < y) ? -1 : ((x > y) ? 1 : 0)); // 오름차순
+          });
+        }else if($val == 'new'){ // 최신순
+          this.todoListItems.sort((a,b) => {
+            let x = a['key']; 
+            let y = b['key'];
+            return ((x < y) ? 1 : ((x > y) ? -1 : 0)); // 내림차순
+          });
+        }else if ($val == 'ing'){ // 진행순
+          this.todoListItems.sort((a,b) => {
+            let ing = a['isDone'];
+            let done = b['isDone'];
+            let x = a['key']; 
+            let y = b['key'];
+            return (
+              (ing < done) ? -1 : (ing > done) ? 1 : ( 
+                (x < y) ? 1 : (x < y) ? -1 : 0
+              )
+            )
+          });
+        }else if ($val == 'cmp'){ // 완료순
+          this.todoListItems.sort((a,b) => {
+            let ing = a['isDone'];
+            let done = b['isDone'];
+            let x = a['key']; 
+            let y = b['key'];
+            return (
+              (ing < done) ? 1 : (ing > done) ? -1 : ( 
+                (x < y) ? 1 : (x < y) ? -1 : 0
+              )
+            )
+          });
+        }else if ($val == 'abc'){ // 가나다순
+          this.todoListItems.sort((a,b) => {
+            let x = a['value'].toLowerCase();
+            let y = b['value'].toLowerCase();
+            return ((x < y) ? -1 : ((x > y) ? 1 : 0)); // 오름차순
+          })
+        }
+      };
+    }
   },
 
   created() {
@@ -106,10 +163,8 @@ export default {
         this.todoListItems.push(jsonObj);
       }
       // localStorage 는 입력된 순서데로 정렬되지 않는다 저장된 데이터를 불러올때 미리 정의해둔 key값으로 sort해야한다. 
-      this.todoListItems.sort(function(a,b){
-          var x = a['key']; var y = b['key'];
-          return ((x < y) ? -1 : ((x > y) ? 1 : 0));
-      });
+      this.sort = 'reg';
+      this.changeSort(this.sort);
     }
       // 라이프 사이클 참고...
       // created 
@@ -119,8 +174,7 @@ export default {
       // mounted
       // el이 새로 생성된 vm.$el로 대체된 인스턴스가 마운트 된 직후 호출됩니다. 
       // 루트 인스턴스가 문서 내의 엘리먼트에 마운트 되어 있으면, mounted가 호출 될 때 vm.$el도 문서 안에 있게 됩니다.
-
-    this.filterTodo()
+    this.filterTodo();
   },
 
   components: {

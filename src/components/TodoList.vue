@@ -5,10 +5,12 @@
     </div>
     <div v-else>
       <div class="bx_top">
-        <select>
-          <option>최신순</option>
-          <option>진행중</option>
-          <option>가나다순</option>
+        <select name="slct" class="slct" @change="changeSort($event.target.value)" v-model="slct">
+          <option value="reg">등록순</option>
+          <option value="new">최신순</option>
+          <option value="ing">진행순</option>
+          <option value="cmp">완료순</option>
+          <option value="abc">가나다순</option>
         </select>
       </div>
       <ul class="li_todo">
@@ -25,10 +27,13 @@
             <button class="btn_remove" @click="removeItem(item.key, index)">-</button>
           </div>
           <div v-show="item.isEdit">
-            <input type="text" class="edit" 
-              v-model="item.value" ref="inp"
-              @keyup.enter="doneEdit(item.key, index, item.value, item.isEdit)">
-            <button type="button" class="btn_ok" @click="doneEdit(item.key, index, item.value, item.isEdit)">OK</button>
+            <form @submit.prevent="doneEdit(item.key, index, item.value, item.isEdit)">
+              <legend>할일 수정하기</legend>
+              <input type="text" class="edit" 
+                v-model="item.value" ref="inp"
+                @keyup.enter="doneEdit(item.key, index, item.value, item.isEdit)">
+              <button type="button" class="btn_ok" @click="doneEdit(item.key, index, item.value, item.isEdit)">OK</button>
+            </form>
           </div>
         </li>
       </ul>
@@ -38,7 +43,12 @@
 
 <script>
   export default {
-    props: ["propsdata"],
+    props: ["propsdata", "sortTodo"],
+    data() {
+      return {
+        slct : ''
+      }
+    },
     methods : {
       // 삭제
       removeItem($todoItem, $idx) {
@@ -60,6 +70,13 @@
         event.stopPropagation();
         this.$emit("doneEditEvt", $todoItem, $idx, $val, !done);
       },
+      // 정렬
+      changeSort($sortValue) {
+        this.$emit("changeSortEvt", $sortValue)
+      }
+    },
+    created(){
+      this.slct = this.sortTodo;
     },
   }
 </script>
