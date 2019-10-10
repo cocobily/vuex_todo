@@ -33,7 +33,7 @@ body{
   }
 }
 .bx_count{
-  padding: 60px 0 10px;
+  padding: 60px 0 30px;
   text-align: right;
   font-size: 1rem;
   color: #333;
@@ -87,16 +87,43 @@ body{
   color: rgb(242, 174, 174);
 }
 .bx_inp {
-  height: 40px;
   margin-bottom: 30px;
   padding-bottom: 30px;
   text-align: left;
   border-bottom: 1px dashed #a5a5a5;
-  form{
+  .row{
+    display: flex;
+    flex-direction: row;
+    height: 40px;
+    & + .row{
+      margin-top: 10px;
+    }
+    .inp{
+      flex:1;
+    }
+    &.center{
+      justify-content: center;
+      align-items: center;
+    }
+    label{
+      padding-right: 10px;
+    }
+  }
+
+  input{
+    height:100%;
     padding-left: 10px;
     background: white;
     border-radius: 5px;
-    line-height: 40px;
+    box-sizing: border-box;
+    border: none;
+  }
+  .inp_date{
+    text-align: center;
+    input{
+      height: 100%;
+      min-height: 40px;
+    }
   }
 }
 .inp {

@@ -1,17 +1,30 @@
 <template>
   <div class="bx_inp">
     <form @submit.prevent="addItem">
-      <input type="text" class="inp" ref="addinp" v-focus v-model.trim="newItem" placeholder="할일을 입력 후 추가해 주세요.">
-      <button type="button" class="btn_add" @click="addItem">+</button>
+      <div class="row">
+        <input type="text" class="inp" ref="addinp" v-focus v-model.trim="newItem" placeholder="할일을 입력 후 추가해 주세요.">
+        <button type="button" class="btn_add" @click="addItem">+</button>
+      </div>
+      <div class="row center">
+        <label for="inp_date">완료 기한 : </label>
+        <datepicker class="inp_date" v-model="date" :language="ko" :format="customFormatter"></datepicker>
+        <!-- <input type="text" id="inp_date" class="inp_date" placeholder="YYYY-MM-DD"> -->
+      </div>
     </form>
   </div>
 </template>
 
 <script>
+  import Datepicker from 'vuejs-datepicker';
+  import {ko} from 'vuejs-datepicker/dist/locale';
+  import Moment from 'moment-timezone';
+
   export default {
     data(){
       return {
-        newItem :''
+        newItem :'',
+        ko: ko,
+        date : ''
       }
     },
     
@@ -28,6 +41,9 @@
       },
       clearText(){
         this.newItem = '';
+      },
+      customFormatter(date){
+        return Moment(date).format('YYYY MM dd');
       }
     },
         
@@ -39,5 +55,10 @@
         }
       }
     },
+
+    components: {
+      Datepicker,
+      Moment
+    }
   }
 </script>

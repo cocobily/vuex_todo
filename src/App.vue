@@ -181,7 +181,7 @@ export default {
   components: {
     TodoHeader,
     TodoInput,
-    TodoList
+    TodoList,
   }
 }
 </script>

@@ -20,10 +20,13 @@
               :id="item.key" 
               v-model="item.isDone"
               @click="toggleCheck(item.key, index, item.isDone)">
-            <span class="item_txt" :title="item.value"
-              @dblclick="editItem(item.key, index, item.isEdit)">
-                {{item.value}}
-            </span>
+            <div class="todo">  
+              <span class="item_txt" :title="item.value"
+                @dblclick="editItem(item.key, index, item.isEdit)">
+                  {{item.value}}
+              </span>
+              <span class="item_dt"> (2019-10-01)</span>
+            </div>
             <button class="btn_remove" @click="removeItem(item.key, index)">-</button>
           </div>
           <div v-show="item.isEdit">
