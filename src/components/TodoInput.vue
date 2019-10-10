@@ -7,7 +7,7 @@
       </div>
       <div class="row center">
         <label for="inp_date">완료 기한 : </label>
-        <datepicker class="inp_date" v-model="date" :language="ko" :format="customFormatter"></datepicker>
+        <datepicker class="inp_date" v-model="date" :language="ko" ></datepicker>
         <!-- <input type="text" id="inp_date" class="inp_date" placeholder="YYYY-MM-DD"> -->
       </div>
     </form>
@@ -18,7 +18,7 @@
   import Datepicker from 'vuejs-datepicker';
   import {ko} from 'vuejs-datepicker/dist/locale';
   import Moment from 'moment-timezone';
-
+  
   export default {
     data(){
       return {
@@ -42,9 +42,9 @@
       clearText(){
         this.newItem = '';
       },
-      customFormatter(date){
-        return Moment(date).format('YYYY MM dd');
-      }
+      // customFormatter(date){
+      //   return Moment(date).format('YYYY MM dd');
+      // }
     },
         
     directives: {
@@ -61,4 +61,6 @@
       Moment
     }
   }
+
+  
 </script>
