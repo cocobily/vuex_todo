@@ -3,6 +3,7 @@ import App from './App.vue';
 import VueMoment from 'vue-moment';
 import Moment from 'moment-timezone';
 import './assets/scss/style.scss';
+import { store } from './store';
 
 Vue.config.productionTip = false
 
@@ -11,6 +12,8 @@ Vue.use(VueMoment, {
 })
 
 new Vue({
+  el: '#app',
+  store,
   render: h => h(App)
 }).$mount('#app')
 

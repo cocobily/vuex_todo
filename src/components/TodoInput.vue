@@ -31,8 +31,9 @@
     methods: {
       addItem(){
         if (this.newItem !== ''){
-          var str = this.newItem;
-          this.$emit('addItemEvt', str, this.$refs.addinp);
+          const str = this.newItem;
+          const addinp = this.$refs.addinp;
+          this.$store.commit('todoAdd', {str, addinp})
           this.clearText();
         }else{
           alert('할일을 입력해주세요.')
@@ -42,9 +43,6 @@
       clearText(){
         this.newItem = '';
       },
-      // customFormatter(date){
-      //   return Moment(date).format('YYYY MM dd');
-      // }
     },
         
     directives: {

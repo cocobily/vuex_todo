@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-if="!propsdata.length">
+    <div v-if="!this.$store.state.todoListItems.length">
       <p class="nodata">할일이 없습니다.</p>
     </div>
     <div v-else>
@@ -14,7 +14,7 @@
         </select>
       </div>
       <ul class="li_todo">
-        <li v-for="(item, index) in propsdata" :key="item.key" :class="{'todoComplete_li':item.isDone, 'edit_li': item.isEdit}">
+        <li v-for="(item, index) in this.$store.state.todoListItems" :key="item.key" :class="{'todoComplete_li':item.isDone, 'edit_li': item.isEdit}">
           <div v-show="!item.isEdit">
             <input type="checkbox" 
               :id="item.key" 
@@ -46,7 +46,6 @@
 
 <script>
   export default {
-    props: ["propsdata", "sortTodo"],
     data() {
       return {
         slct : ''
@@ -54,32 +53,36 @@
     },
     methods : {
       // 삭제
-      removeItem($todoItem, $idx) {
+      removeItem(todoItem, idx) {
         event.stopPropagation();
-        this.$emit("removeItemEvt", $todoItem, $idx);
+        this.$store.commit("removeTodoList", {todoItem, idx});
       },
       // 완료 체크
-      toggleCheck($todoItem, $idx, state) {
+      toggleCheck(todoItem, idx, mode) {
         event.stopPropagation();
-        this.$emit("toggleCheckEvt", $todoItem, $idx, !state);
+        mode = !mode;
+        this.$store.commit("changeDone", {todoItem, idx, mode});
       },
       // 수정시작
-      editItem($todoItem, $idx, edit) {
+      editItem(todoItem, idx, edit) {
         event.stopPropagation();
-        this.$emit("editItemEvt", $todoItem, $idx, !edit, this.$refs.inp);
+        const inp = this.$refs.inp;
+        edit = !edit;
+        this.$store.commit("editItem", {todoItem, idx, edit, inp});
       },
       // 수정완료
-      doneEdit($todoItem, $idx, $val, done) {
+      doneEdit(todoItem, idx, val, done) {
         event.stopPropagation();
-        this.$emit("doneEditEvt", $todoItem, $idx, $val, !done);
+        done = !done;
+        this.$store.commit("editDone", {todoItem, idx, val, done});
       },
       // 정렬
-      changeSort($sortValue) {
-        this.$emit("changeSortEvt", $sortValue)
+      changeSort(sortValue) {
+        this.$store.commit("changeSort", sortValue)
       }
     },
     created(){
-      this.slct = this.sortTodo;
+      this.slct = this.$store.state.sort;
     },
   }
 </script>
