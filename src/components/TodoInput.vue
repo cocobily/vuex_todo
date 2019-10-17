@@ -7,8 +7,7 @@
       </div>
       <div class="row center">
         <label for="inp_date">완료 기한 : </label>
-        <datepicker class="inp_date" v-model="date" :language="ko" ></datepicker>
-        <!-- <input type="text" id="inp_date" class="inp_date" placeholder="YYYY-MM-DD"> -->
+        <datepicker class="inp_date" v-model="date" :language="ko"></datepicker>
       </div>
     </form>
   </div>
@@ -17,7 +16,6 @@
 <script>
   import Datepicker from 'vuejs-datepicker';
   import {ko} from 'vuejs-datepicker/dist/locale';
-  import Moment from 'moment-timezone';
   
   export default {
     data(){
@@ -34,6 +32,8 @@
           const str = this.newItem;
           const addinp = this.$refs.addinp;
           this.$store.commit('todoAdd', {str, addinp})
+          this.$store.commit('changeSort', this.$store.getters.sortType);
+          this.$store.commit('filterTodo', this.$store.getters.countFilterGet);
           this.clearText();
         }else{
           alert('할일을 입력해주세요.')
@@ -56,7 +56,6 @@
 
     components: {
       Datepicker,
-      Moment
     }
   }
 

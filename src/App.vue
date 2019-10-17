@@ -24,18 +24,6 @@ export default {
   // },
 
   created() {
-    // if (localStorage.length > 0) {
-    //   for (var i = 0; i < localStorage.length; i++) {
-    //     if (localStorage.key(i) === "loglevel:webpack-dev-server") continue;
-    //     var strData = localStorage[localStorage.key(i)];
-    //     var jsonObj = JSON.parse(strData);
-    //     this.todoListItems.push(jsonObj);
-    //   }
-    //   // localStorage 는 입력된 순서데로 정렬되지 않는다 저장된 데이터를 불러올때 미리 정의해둔 key값으로 sort해야한다. 
-    //   if (this.sort == ""){this.sort = 'reg'}
-    //   this.changeSort(this.sort);
-    //   this.filterTodo();
-    // }
       // 라이프 사이클 참고...
       // created 
       // 인스턴스가 작성된 후 동기적으로 호출됩니다. 
@@ -44,7 +32,9 @@ export default {
       // mounted
       // el이 새로 생성된 vm.$el로 대체된 인스턴스가 마운트 된 직후 호출됩니다. 
       // 루트 인스턴스가 문서 내의 엘리먼트에 마운트 되어 있으면, mounted가 호출 될 때 vm.$el도 문서 안에 있게 됩니다.
-      
+      if (this.$store.getters.sortType == ""){this.$store.state.sort = 'reg'}
+      this.$store.commit('changeSort', this.$store.getters.sortType);
+      this.$store.commit('filterTodo', this.$store.getters.countFilterGet);
   },
 
   components: {

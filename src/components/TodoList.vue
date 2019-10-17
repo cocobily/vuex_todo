@@ -56,12 +56,16 @@
       removeItem(todoItem, idx) {
         event.stopPropagation();
         this.$store.commit("removeTodoList", {todoItem, idx});
+        this.$store.commit('changeSort', this.$store.getters.sortType);
+        this.$store.commit('filterTodo', this.$store.getters.countFilterGet);
       },
       // 완료 체크
       toggleCheck(todoItem, idx, mode) {
         event.stopPropagation();
         mode = !mode;
         this.$store.commit("changeDone", {todoItem, idx, mode});
+        this.$store.commit('changeSort', this.$store.getters.sortType);
+        this.$store.commit('filterTodo', this.$store.getters.countFilterGet);
       },
       // 수정시작
       editItem(todoItem, idx, edit) {
