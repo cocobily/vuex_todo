@@ -33,8 +33,7 @@
             <form @submit.prevent="doneEdit(item.key, index, item.value, item.isEdit)">
               <legend>할일 수정하기</legend>
               <input type="text" class="edit" 
-                v-model="item.value" ref="inp"
-                @keyup.enter="doneEdit(item.key, index, item.value, item.isEdit)">
+                v-model="item.value" ref="inp">
               <button type="button" class="btn_ok" @click="doneEdit(item.key, index, item.value, item.isEdit)">OK</button>
             </form>
           </div>

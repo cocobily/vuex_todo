@@ -1,15 +1,9 @@
 import Vue from 'vue';
 import App from './App.vue';
-import VueMoment from 'vue-moment';
-import Moment from 'moment-timezone';
 import './assets/scss/style.scss';
 import { store } from './store';
 
 Vue.config.productionTip = false
-
-Vue.use(VueMoment, {
-  Moment,
-})
 
 new Vue({
   el: '#app',

@@ -14,7 +14,6 @@
     methods:{
       removeAll(){
         this.$store.commit("removeAll");
-        this.$store.commit('changeSort', this.$store.getters.sortType);
         this.$store.commit('filterTodo', this.$store.getters.countFilterGet);
       }
     }

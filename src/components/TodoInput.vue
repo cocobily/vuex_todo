@@ -1,13 +1,13 @@
 <template>
   <div class="bx_inp">
-    <form @submit.prevent="addItem">
+    <form>
       <div class="row">
-        <input type="text" class="inp" ref="addinp" v-focus v-model.trim="newItem" placeholder="할일을 입력 후 추가해 주세요.">
+        <input type="text" class="inp" ref="addinp" v-focus v-model.trim="newItem" @keyup.enter="addItem" placeholder="할일을 입력 후 추가해 주세요.">
         <button type="button" class="btn_add" @click="addItem">+</button>
       </div>
       <div class="row center">
         <label for="inp_date">완료 기한 : </label>
-        <datepicker class="inp_date" v-model="date" :language="ko"></datepicker>
+        <datepicker class="inp_date" v-model="date" :language="ko" format="yyyy MM dd" placeholder="날짜를 선택하세요."></datepicker>
       </div>
     </form>
   </div>
@@ -15,14 +15,14 @@
 
 <script>
   import Datepicker from 'vuejs-datepicker';
-  import {ko} from 'vuejs-datepicker/dist/locale';
+  import {ko} from 'vuejs-datepicker/dist/locale/';
   
   export default {
     data(){
       return {
         newItem :'',
         ko: ko,
-        date : ''
+        date : '',
       }
     },
     
