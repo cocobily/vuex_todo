@@ -23,7 +23,7 @@ const storage = {
 
 export const store = new Vuex.Store({
   state: {
-    titles : "new Todo App",
+    titles : "New Todo App",
     todoListItems : storage.fetch(),
     countFilter: {
       listTotal :0, // 총
@@ -78,7 +78,11 @@ export const store = new Vuex.Store({
 
     // 수정
     editItem(state, payload) {
+      state.todoListItems.map(todo => {
+        return todo.isEdit = false;
+      })
       state.todoListItems[payload.idx].isEdit = payload.edit;
+      localStorage.getItem(state.todoListItems);
       setTimeout(function(){payload.inp[payload.idx].focus()},100)
     },
 
