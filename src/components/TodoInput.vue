@@ -6,8 +6,8 @@
         <button type="button" class="btn_add" @click="addItem">+</button>
       </div>
       <div class="row center">
-        <label for="inp_date">완료 기한 : </label>
-        <datepicker class="inp_date" v-model="date" :language="ko" format="yyyy MM dd" placeholder="날짜를 선택하세요."></datepicker>
+        <label for="inp_date">마감일 : </label>
+        <datepicker class="inp_date" ref="dateinp" v-model="date" :language="ko" format="yyyy-MM-dd" placeholder="날짜를 선택하세요."></datepicker>
       </div>
     </form>
   </div>
@@ -28,23 +28,25 @@
     
     methods: {
       addItem(){
-        if (this.newItem !== ''){
+        if (this.newItem !== '' && this.date !== ''){
           const str = this.newItem;
           const addinp = this.$refs.addinp;
-          this.$store.commit('todoAdd', {str, addinp})
+          const dday = this.date;
+          this.$store.commit('todoAdd', {str, addinp, dday})
           this.$store.commit('changeSort', this.$store.getters.sortType);
           this.$store.commit('filterTodo', this.$store.getters.countFilterGet);
           this.clearText();
         }else{
-          alert('할일을 입력해주세요.')
+          this.date == '' ? (alert('마감일을 입력하세요')) : alert('할일을 입력해주세요.')
           this.$refs.addinp.focus();
         }
       },
       clearText(){
         this.newItem = '';
-      },
+        this.date = '';
+      }
     },
-        
+
     directives: {
       focus: {
         // 디렉티브 정의
@@ -58,6 +60,4 @@
       Datepicker,
     }
   }
-
-  
 </script>

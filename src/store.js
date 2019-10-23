@@ -15,9 +15,6 @@ const storage = {
       }
     }
     return arr;
-  },
-  set() {
-    if (Vuex.Store.state.sort == ""){(Vuex.Store.state.sort = 'reg')}
   }
 }
 
@@ -54,8 +51,9 @@ export const store = new Vuex.Store({
       const data = {
         key: newKey, 
         value: payload.str, 
-        isDone: false, 
-        isEdit: false
+        isEdit: false,
+        isDone: false,
+        dDay: payload.dday
       };
       state.todoListItems.push(data);
       payload.addinp.focus();
@@ -78,11 +76,11 @@ export const store = new Vuex.Store({
 
     // 수정
     editItem(state, payload) {
-      state.todoListItems.map(todo => {
-        return todo.isEdit = false;
-      })
+      // state.todoListItems.map(todo => {
+      //   return todo.isEdit = false;
+      // })
       state.todoListItems[payload.idx].isEdit = payload.edit;
-      localStorage.getItem(state.todoListItems);
+      // localStorage.getItem(state.todoListItems);
       setTimeout(function(){payload.inp[payload.idx].focus()},100)
     },
 
@@ -93,9 +91,8 @@ export const store = new Vuex.Store({
       }else{
         state.todoListItems[payload.idx].value = payload.val;
         state.todoListItems[payload.idx].isEdit = payload.isEdit;
-        const data = state.todoListItems[payload.idx];
-
-        localStorage.setItem(state.todoItem, JSON.stringify(data));
+        const edittodo = state.todoListItems[payload.idx];
+        localStorage.setItem(payload.todoItem, JSON.stringify(edittodo));
       }
     },
 
@@ -150,6 +147,13 @@ export const store = new Vuex.Store({
                 (x < y) ? 1 : (x < y) ? -1 : 0
               )
             )
+          });
+        }else if (payload == 'day'){ // 마감 임박순
+          state.todoListItems.sort((a,b) => {
+            let x = a["dDay"]; 
+            let y = b["dDay"];
+            // 0 또는 양수를 음수를 반환. 0:동일, 1 : 이상 반환은 무효. 숫자 대신 >사용 가능
+            return ((x < y) ? -1 : ((x > y) ? 1 : 0)); // 오름차순
           });
         }else if (payload == "abc"){ // 가나다순
           state.todoListItems.sort((a,b) => {

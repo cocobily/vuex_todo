@@ -10,6 +10,7 @@
           <option value="new">최신순</option>
           <option value="ing">진행순</option>
           <option value="cmp">완료순</option>
+          <option value="day">마감임박순</option>
           <option value="abc">가나다순</option>
         </select>
       </div>
@@ -21,20 +22,20 @@
               v-model="item.isDone"
               @click="toggleCheck(item.key, index, item.isDone)">
             <div class="todo">  
-              <span class="item_txt" :title="item.value"
-                @dblclick="editItem(item.key, index, item.isEdit)">
-                  {{item.value}}
-              </span>
-              <span class="item_dt"> (2019-10-01)</span>
+              <span class="item_txt" :title="item.value">{{item.value}}</span>
+              <span class="item_dt">( 마감일 : {{ item.dDay | moment('YYYY-MM-DD') }} )</span>
             </div>
+            <button class="btn_edit" @click="editItem(item.key, index, item.isEdit, item.value, item.dDay)">edit</button>
             <button class="btn_remove" @click="removeItem(item.key, index)">-</button>
           </div>
           <div v-show="item.isEdit">
-            <form @submit.prevent="doneEdit(item.key, index, item.value, item.isEdit)">
+            <form @submit.prevent="doneEdit(item.key, index, item.isEdit, item.value, item.dDay)">
               <legend>할일 수정하기</legend>
-              <input type="text" class="edit" 
-                v-model="item.value" ref="inp">
-              <button type="button" class="btn_ok" @click="doneEdit(item.key, index, item.value, item.isEdit)">OK</button>
+              <div class="bx_edit">
+                <input type="text" class="edit" v-model="item.value" ref="inp">
+                <datepicker class="inp_date" ref="date" v-model="item.dDay" :language="ko" format="yyyy-MM-dd"></datepicker>
+              </div>
+              <button type="button" class="btn_ok" @click="doneEdit(item.key, index, item.isEdit, item.value, item.dDay)">OK</button>
             </form>
           </div>
         </li>
@@ -44,10 +45,14 @@
 </template>
 
 <script>
+  import Datepicker from 'vuejs-datepicker';
+  import {ko} from 'vuejs-datepicker/dist/locale/';
+
   export default {
     data() {
       return {
-        slct : ''
+        slct : '',
+        ko: ko,
       }
     },
     methods : {
@@ -67,17 +72,18 @@
         this.$store.commit('filterTodo', this.$store.getters.countFilterGet);
       },
       // 수정시작
-      editItem(todoItem, idx, edit) {
+      editItem(todoItem, idx, edit, val, day) {
         event.stopPropagation();
         const inp = this.$refs.inp;
         edit = !edit;
-        this.$store.commit("editItem", {todoItem, idx, edit, inp});
+        this.$store.commit("editItem", {todoItem, idx, edit, val, day, inp});
       },
       // 수정완료
-      doneEdit(todoItem, idx, val, done) {
+      doneEdit(todoItem, idx, edit, val, day) {
         event.stopPropagation();
-        done = !done;
-        this.$store.commit("editDone", {todoItem, idx, val, done});
+        edit = !edit;
+        const dday = this.day
+        this.$store.commit("editDone", {todoItem, idx, edit, val, dday});
       },
       // 정렬
       changeSort(sortValue) {
@@ -87,5 +93,8 @@
     created(){
       this.slct = this.$store.state.sort;
     },
+    components: {
+      Datepicker,
+    }
   }
 </script>
