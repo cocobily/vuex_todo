@@ -51,8 +51,8 @@ export const store = new Vuex.Store({
       const data = {
         key: newKey, 
         value: payload.str, 
-        isEdit: false,
-        isDone: false,
+        isEdit: false, //편집
+        isDone: false, //할일완료여부
         dDay: payload.dday
       };
       state.todoListItems.push(data);
@@ -76,9 +76,9 @@ export const store = new Vuex.Store({
 
     // 수정
     editItem(state, payload) {
-      // state.todoListItems.map(todo => {
-      //   return todo.isEdit = false;
-      // })
+      state.todoListItems.map(todo => {
+        return todo.isEdit = false;
+      })
       state.todoListItems[payload.idx].isEdit = payload.edit;
       // localStorage.getItem(state.todoListItems);
       setTimeout(function(){payload.inp[payload.idx].focus()},100)
@@ -90,7 +90,7 @@ export const store = new Vuex.Store({
         alert("할일을 입력하세요")
       }else{
         state.todoListItems[payload.idx].value = payload.val;
-        state.todoListItems[payload.idx].isEdit = payload.isEdit;
+        state.todoListItems[payload.idx].isEdit = payload.edit;
         const edittodo = state.todoListItems[payload.idx];
         localStorage.setItem(payload.todoItem, JSON.stringify(edittodo));
       }

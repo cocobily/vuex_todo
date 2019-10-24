@@ -10,7 +10,7 @@
           <option value="new">최신순</option>
           <option value="ing">진행순</option>
           <option value="cmp">완료순</option>
-          <option value="day">마감임박순</option>
+          <option value="day">마감일 임박순</option>
           <option value="abc">가나다순</option>
         </select>
       </div>
@@ -25,17 +25,17 @@
               <span class="item_txt" :title="item.value">{{item.value}}</span>
               <span class="item_dt">( 마감일 : {{ item.dDay | moment('YYYY-MM-DD') }} )</span>
             </div>
-            <button class="btn_edit" @click="editItem(item.key, index, item.isEdit, item.value, item.dDay)">edit</button>
+            <button class="btn_edit" @click="editItem(item.key, index, item.isEdit, item.isDone, item.value, item.dDay)">edit</button>
             <button class="btn_remove" @click="removeItem(item.key, index)">-</button>
           </div>
           <div v-show="item.isEdit">
-            <form @submit.prevent="doneEdit(item.key, index, item.isEdit, item.value, item.dDay)">
+            <form @submit.prevent="doneEdit(item.key, index, item.isEdit, item.isDone, item.value, item.dDay)">
               <legend>할일 수정하기</legend>
               <div class="bx_edit">
                 <input type="text" class="edit" v-model="item.value" ref="inp">
-                <datepicker class="inp_date" ref="date" v-model="item.dDay" :language="ko" format="yyyy-MM-dd"></datepicker>
+                <div class="row center">마감일 : <datepicker class="inp_date" ref="date" v-model="item.dDay" :language="ko" format="yyyy-MM-dd"></datepicker></div>
               </div>
-              <button type="button" class="btn_ok" @click="doneEdit(item.key, index, item.isEdit, item.value, item.dDay)">OK</button>
+              <button type="button" class="btn_ok" @click="doneEdit(item.key, index, item.isEdit, item.isDone, item.value, item.dDay)">OK</button>
             </form>
           </div>
         </li>
@@ -53,6 +53,7 @@
       return {
         slct : '',
         ko: ko,
+        day: ''
       }
     },
     methods : {
@@ -72,18 +73,17 @@
         this.$store.commit('filterTodo', this.$store.getters.countFilterGet);
       },
       // 수정시작
-      editItem(todoItem, idx, edit, val, day) {
+      editItem(todoItem, idx, edit, done, val, day) {
         event.stopPropagation();
         const inp = this.$refs.inp;
         edit = !edit;
-        this.$store.commit("editItem", {todoItem, idx, edit, val, day, inp});
+        this.$store.commit("editItem", {todoItem, idx, edit, done, val, day, inp});
       },
       // 수정완료
-      doneEdit(todoItem, idx, edit, val, day) {
+      doneEdit(todoItem, idx, edit, done, val, day) {
         event.stopPropagation();
         edit = !edit;
-        const dday = this.day
-        this.$store.commit("editDone", {todoItem, idx, edit, val, dday});
+        this.$store.commit("editDone", {todoItem, idx, edit, done, val, day});
       },
       // 정렬
       changeSort(sortValue) {

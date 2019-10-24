@@ -1,19 +1,8 @@
 // common
 body{
   text-align: center;
-  background-color: #e4f5ef;
-}
-.wrap{
-  min-width: 320px;
-  padding: 20px;
-  box-sizing: border-box;
-  @include respond-to(tablet){
-    width: 800px;
-    margin:0 auto;
-  }
-}
-.nodata{
-  padding: 50px 0;
+  background-color: $color4;
+  font-family: $fontf;
 }
 
 // btn
@@ -64,7 +53,74 @@ body{
     outline: none;
   }
 }
+.btn_remove, .btn_ok {
+  z-index: 1;
+  flex: 1 1 auto;
+  height: 100%;
+  min-height: 40px;
+  background: $color2;
+  width: 3.5rem;
+  min-width: 56px;
+  margin-left:auto;
+  font-size: 1.6rem;
+  border-radius: 0 6px 6px 0;
+  color: $white;
+  font-weight: bold;
+  text-shadow: 1px 1px 1px rgb(50, 34, 0);
+  cursor: pointer;
+  &:hover{
+    background: $color3;
+  }
+  &:focus {
+    outline: none;
+  }
+}
+.btn_ok{
+  height: 100px;
+  font-size: 1.2rem;
+}
+.btn_edit{
+  display: inline-block;
+  width: 30px;
+  height: 30px;
+  margin-left: auto;
+  margin-right: 10px;
+  @include bg('ico_edit.svg', no-repeat, 0 0, 30px);
+  @include blind;
+  cursor: pointer;
+}
+.btn_complete{
+  z-index: 1;
+  height: 40px;
+  width: 3.5rem;
+  font-size: 1.2rem;
+  border-radius: 6px 0 0 6px;
+  color: rgb(176, 0, 82);
+  font-weight: bold;
+  text-shadow: 1px 1px 1px rgb(50, 34, 0);
+  cursor: pointer;
+  &:hover{
+    background: rgb(176, 0, 82);
+    color: white;
+  }
+  &:focus {
+    outline: none;
+  }
+}
 
+// layout
+.wrap{
+  min-width: 320px;
+  padding: 20px;
+  box-sizing: border-box;
+  @include respond-to(tablet){
+    width: 800px;
+    margin:0 auto;
+  }
+}
+.nodata{
+  padding: 50px 0;
+}
 // header
 .header{
   overflow:hidden;
@@ -80,11 +136,8 @@ body{
 }
 
 // form
-.inp:focus {
-  outline: none;
-}
 ::placeholder {
-  color: rgb(242, 174, 174);
+  color: $point3;
 }
 .bx_inp {
   margin-bottom: 30px;
@@ -163,47 +216,56 @@ select {
     }
     &.edit_li{
       background: #fff;
+      box-shadow: 5px 5px 10px rgba(44, 62, 80, 0.5);
       opacity: 1;
     }
     &.todoComplete_li {
       background:rgb(201, 201, 201)
     }
   }
+  .todo{
+    width: 100%;
+    padding: 5px 0 10px;
+  }
   .bx_edit{
     width: 100%;
+    padding: 5px 10px;
+    .edit{
+      width: 100%;
+      padding: 10px;
+      border:1px solid #cacaca;
+      border-radius: 6px;
+      box-sizing: border-box;
+    }
+    .row{
+      padding: 10px 10px 0;
+    }
+    .inp_date{
+      display: inline-block;
+      input{
+        padding-left: 10px;
+        border:1px solid #cacaca;
+        border-radius: 5px;
+        appearance: none;
+      }
+    }
   }
 }
-.btn_complete{
-  z-index: 1;
-  height: 40px;
-  width: 3.5rem;
-  font-size: 1.2rem;
-  border-radius: 6px 0 0 6px;
-  color: rgb(176, 0, 82);
-  font-weight: bold;
-  text-shadow: 1px 1px 1px rgb(50, 34, 0);
-  cursor: pointer;
-  &:hover{
-    background: rgb(176, 0, 82);
-    color: white;
-  }
-  &:focus {
-    outline: none;
-  }
-}
+
 .item_txt {
   flex:1;
   overflow: hidden;
   width: calc(100% - 3.5rem);
-  padding-right: 10px;
+  padding: 3px 10px 3px 0;
   cursor: pointer;
-  white-space: nowrap;
   text-overflow: ellipsis;
   font-size: 1.2rem;
   color: $white;
   word-break: break-all;
 }
 .item_dt{
+  display: inline-block;
+  margin-top: 5px;
   font-size: 0.8rem;
   line-height: 1.2rem;
   letter-spacing: -0.05rem;
@@ -225,37 +287,6 @@ input[type="checkbox"] {
     color: gray;
     text-decoration: line-through;
   }
-}
-.btn_remove, .btn_ok {
-  z-index: 1;
-  height: 40px;
-  background: $color2;
-  width: 3.5rem;
-  margin-left:auto;
-  font-size: 1.6rem;
-  border-radius: 0 6px 6px 0;
-  color: $white;
-  font-weight: bold;
-  text-shadow: 1px 1px 1px rgb(50, 34, 0);
-  cursor: pointer;
-  &:hover{
-    background: $color3;
-  }
-  &:focus {
-    outline: none;
-  }
-}
-.btn_ok{
-  font-size: 1.2rem;
-  min-width: 56px;
-  height: 80px;
-}
-.edit{
-  width: 100%;
-  border:none;
-  padding: 13px;
-  border-radius: 6px 0 0 6px;
-  box-sizing: border-box;
 }
 
 // sort
